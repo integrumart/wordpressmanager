@@ -37,6 +37,28 @@ confSpec = {
 }
 config.conf.spec["wordpressManager"] = confSpec
 
+class WordPressSettingsDialog(gui.SettingsDialog):
+	"""Dialog for configuring WordPress connection settings."""
+	title = _("WordPress Manager Settings")
+
+	def makeSettings(self, settingsSizer):
+		sHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
+		
+		self.siteUrl = sHelper.addLabeledControl(_("Site &URL:"), wx.TextCtrl)
+		self.siteUrl.Value = config.conf["wordpressManager"]["siteUrl"]
+		
+		self.username = sHelper.addLabeledControl(_("&Username:"), wx.TextCtrl)
+		self.username.Value = config.conf["wordpressManager"]["username"]
+		
+		self.appPassword = sHelper.addLabeledControl(_("&Application Password:"), wx.TextCtrl, style=wx.TE_PASSWORD)
+		self.appPassword.Value = config.conf["wordpressManager"]["appPassword"]
+
+	def onOk(self, event):
+		config.conf["wordpressManager"]["siteUrl"] = self.siteUrl.Value
+		config.conf["wordpressManager"]["username"] = self.username.Value
+		config.conf["wordpressManager"]["appPassword"] = self.appPassword.Value
+		super(WordPressSettingsDialog, self).onOk(event)
+
 class CreateContentDialog(gui.SettingsDialog):
 	"""Ultimate dialog for creating Posts, Pages and selecting Categories."""
 	title = _("WordPress: Create New Content")
@@ -60,6 +82,9 @@ class CreateContentDialog(gui.SettingsDialog):
 		threading.Thread(target=self.fetchCategories).start()
 
 	def fetchCategories(self):
+		if requests is None:
+			wx.CallAfter(ui.message, _("Requests library not available. Please install dependencies."))
+			return
 		url = config.conf["wordpressManager"]["siteUrl"]
 		auth = (config.conf["wordpressManager"]["username"], config.conf["wordpressManager"]["appPassword"])
 		try:
@@ -115,6 +140,9 @@ class CommentManagerDialog(gui.SettingsDialog):
 		threading.Thread(target=self.loadComments).start()
 
 	def loadComments(self):
+		if requests is None:
+			wx.CallAfter(ui.message, _("Requests library not available. Please install dependencies."))
+			return
 		url = config.conf["wordpressManager"]["siteUrl"]
 		auth = (config.conf["wordpressManager"]["username"], config.conf["wordpressManager"]["appPassword"])
 		try:
@@ -142,15 +170,15 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		self.menu = gui.mainFrame.sysTrayIcon.menu
 		self.wp_menu = wx.Menu()
 		
-		self.wp_menu.Append(wx.ID_ANY, _("New Content...")).SetItemLabel(_("New Content..."))
-		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onNew, self.wp_menu.FindItemByPosition(0))
+		newItem = self.wp_menu.Append(wx.ID_ANY, _("New Content..."))
+		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onNew, newItem)
 		
-		self.wp_menu.Append(wx.ID_ANY, _("Manage Comments..."))
-		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onComments, self.wp_menu.FindItemByPosition(1))
+		commentsItem = self.wp_menu.Append(wx.ID_ANY, _("Manage Comments..."))
+		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onComments, commentsItem)
 		
 		self.wp_menu.AppendSeparator()
-		self.wp_menu.Append(wx.ID_ANY, _("Settings..."))
-		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onSettings, self.wp_menu.FindItemByPosition(3))
+		settingsItem = self.wp_menu.Append(wx.ID_ANY, _("Settings..."))
+		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onSettings, settingsItem)
 		
 		self.main_item = self.menu.AppendSubMenu(self.wp_menu, _("WordPress Manager"))
 
@@ -168,6 +196,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		WordPressSettingsDialog(gui.mainFrame).Show()
 
 	def api_call(self, method, endpoint, data=None):
+		if requests is None:
+			wx.CallAfter(ui.message, _("Requests library not available. Please install dependencies."))
+			return
 		url = f"{config.conf['wordpressManager']['siteUrl']}/wp-json/wp/v2/{endpoint}"
 		auth = (config.conf['wordpressManager']['username'], config.conf['wordpressManager']['appPassword'])
 		try:
