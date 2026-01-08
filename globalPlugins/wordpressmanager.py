@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 # WordPress Manager Ultimate for NVDA
+# Version: 8.9
 # Author: Volkan Ozdemir Software Services
-# Website: https://www.volkan-ozdemir.com.tr
-# Donation: https://www.paytr.com/link/N2IAQKm
 
 import os
 import sys
@@ -16,10 +15,10 @@ import addonHandler
 import config
 import logHandler
 
-# Initialize localization
+# Initialize translation
 addonHandler.initTranslation()
 
-# Standard Library Injection
+# Library Path Injection
 LIB_PATH = os.path.join(os.path.dirname(__file__), "lib")
 if LIB_PATH not in sys.path:
 	sys.path.insert(0, LIB_PATH)
@@ -37,31 +36,41 @@ confSpec = {
 }
 config.conf.spec["wordpressManager"] = confSpec
 
+class WordPressSettingsDialog(gui.SettingsDialog):
+	"""Panel where WordPress connection settings are made."""
+	title = _("WordPress Manager Settings") # English source
+
+	def makeSettings(self, settingsSizer):
+		sHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
+		self.siteUrl = sHelper.addLabeledControl(_("Site &URL Address:"), wx.TextCtrl, value=config.conf["wordpressManager"]["siteUrl"])
+		self.username = sHelper.addLabeledControl(_("&Username:"), wx.TextCtrl, value=config.conf["wordpressManager"]["username"])
+		self.appPassword = sHelper.addLabeledControl(_("&Application Password:"), wx.TextCtrl, value=config.conf["wordpressManager"]["appPassword"], style=wx.TE_PASSWORD)
+
+	def onOk(self, event):
+		config.conf["wordpressManager"]["siteUrl"] = self.siteUrl.Value.strip().rstrip('/')
+		config.conf["wordpressManager"]["username"] = self.username.Value.strip()
+		config.conf["wordpressManager"]["appPassword"] = self.appPassword.Value.strip()
+		super(WordPressSettingsDialog, self).onOk(event)
+
 class CreateContentDialog(gui.SettingsDialog):
-	"""Ultimate dialog for creating Posts, Pages and selecting Categories."""
+	"""Content creation dialog."""
 	title = _("WordPress: Create New Content")
 
 	def makeSettings(self, settingsSizer):
 		sHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
-		
 		self.postTitle = sHelper.addLabeledControl(_("Content &Title:"), wx.TextCtrl)
-		self.postContent = sHelper.addLabeledControl(_("&Body Content:"), wx.TextCtrl, style=wx.TE_MULTILINE | wx.TE_RICH2)
-		
-		# Category Selection (Fetches dynamically in background)
+		self.postContent = sHelper.addLabeledControl(_("&Body Text:"), wx.TextCtrl, style=wx.TE_MULTILINE | wx.TE_RICH2)
 		self.categoryList = sHelper.addLabeledControl(_("Select &Category:"), wx.CheckListBox, choices=[_("Loading categories...")])
-		
-		# Type and Status
 		self.contentType = sHelper.addLabeledControl(_("Content &Type:"), wx.Choice, choices=[_("Post"), _("Page")])
 		self.contentType.SetSelection(0)
 		self.status = sHelper.addLabeledControl(_("&Status:"), wx.Choice, choices=[_("Draft"), _("Publish")])
 		self.status.SetSelection(0)
-		
-		# Start fetching categories immediately
 		threading.Thread(target=self.fetchCategories).start()
 
-	def fetchCategories(self):
+	def fetchCategories(self): # camelCase
 		url = config.conf["wordpressManager"]["siteUrl"]
 		auth = (config.conf["wordpressManager"]["username"], config.conf["wordpressManager"]["appPassword"])
+		if not url: return
 		try:
 			r = requests.get(f"{url}/wp-json/wp/v2/categories?per_page=100", auth=auth, timeout=10)
 			if r.status_code == 200:
@@ -69,54 +78,51 @@ class CreateContentDialog(gui.SettingsDialog):
 				catNames = [cat['name'] for cat in self.categories]
 				wx.CallAfter(self.updateCategoryList, catNames)
 		except:
-			wx.CallAfter(ui.message, _("Failed to load categories."))
+			wx.CallAfter(ui.message, _("Could not load categories."))
 
-	def updateCategoryList(self, names):
+	def updateCategoryList(self, names): # camelCase
 		self.categoryList.Clear()
 		self.categoryList.AppendItems(names)
 
 	def onOk(self, event):
-		selected_cats = []
-		if self.contentType.GetSelection() == 0: # Only for Posts
+		selectedCats = []
+		if self.contentType.GetSelection() == 0:
 			for i in range(self.categoryList.GetCount()):
 				if self.categoryList.IsChecked(i):
-					selected_cats.append(self.categories[i]['id'])
-		
+					selectedCats.append(self.categories[i]['id'])
 		payload = {
 			"title": self.postTitle.Value,
 			"content": self.postContent.Value,
-			"status": "publish" if self.status.GetSelection() == 1 else "draft",
-			"categories": selected_cats if selected_cats else None
+			"status": "publish" if self.status.GetSelection() == 1 else "draft"
 		}
+		if selectedCats:
+			payload["categories"] = selectedCats
 		cType = "posts" if self.contentType.GetSelection() == 0 else "pages"
-		threading.Thread(target=self.parentObject.api_call, args=("POST", cType, payload)).start()
+		threading.Thread(target=self.parentObject.apiCall, args=("POST", cType, payload)).start()
 		super(CreateContentDialog, self).onOk(event)
 
 class CommentManagerDialog(gui.SettingsDialog):
-	"""Manage recent comments: Approve, Spam, or Delete."""
+	"""Comment management dialog."""
 	title = _("WordPress: Manage Comments")
 
 	def makeSettings(self, settingsSizer):
 		sHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 		self.commentList = sHelper.addLabeledControl(_("&Recent Comments:"), wx.ListBox, choices=[_("Fetching comments...")])
-		
-		# Action Buttons
 		btnSizer = wx.BoxSizer(wx.HORIZONTAL)
 		self.btnApprove = wx.Button(self, label=_("&Approve"))
 		self.btnSpam = wx.Button(self, label=_("&Spam"))
 		self.btnTrash = wx.Button(self, label=_("&Trash"))
 		btnSizer.Add(self.btnApprove); btnSizer.Add(self.btnSpam); btnSizer.Add(self.btnTrash)
 		settingsSizer.Add(btnSizer)
-		
 		self.btnApprove.Bind(wx.EVT_BUTTON, lambda e: self.onAction("approve"))
 		self.btnSpam.Bind(wx.EVT_BUTTON, lambda e: self.onAction("spam"))
 		self.btnTrash.Bind(wx.EVT_BUTTON, lambda e: self.onAction("trash"))
-		
 		threading.Thread(target=self.loadComments).start()
 
-	def loadComments(self):
+	def loadComments(self): # camelCase
 		url = config.conf["wordpressManager"]["siteUrl"]
 		auth = (config.conf["wordpressManager"]["username"], config.conf["wordpressManager"]["appPassword"])
+		if not url: return
 		try:
 			r = requests.get(f"{url}/wp-json/wp/v2/comments?per_page=10", auth=auth)
 			self.comments = r.json()
@@ -127,8 +133,8 @@ class CommentManagerDialog(gui.SettingsDialog):
 	def onAction(self, action):
 		idx = self.commentList.GetSelection()
 		if idx == wx.NOT_FOUND: return
-		c_id = self.comments[idx]['id']
-		threading.Thread(target=self.parentObject.api_call, args=("POST", f"comments/{c_id}", {"status": action})).start()
+		cId = self.comments[idx]['id']
+		threading.Thread(target=self.parentObject.apiCall, args=("POST", f"comments/{cId}", {"status": action})).start()
 		self.commentList.Delete(idx)
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
@@ -138,21 +144,19 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		super(GlobalPlugin, self).__init__()
 		self.createMenu()
 
-	def createMenu(self):
+	def createMenu(self): # camelCase
 		self.menu = gui.mainFrame.sysTrayIcon.menu
-		self.wp_menu = wx.Menu()
-		
-		self.wp_menu.Append(wx.ID_ANY, _("New Content...")).SetItemLabel(_("New Content..."))
-		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onNew, self.wp_menu.FindItemByPosition(0))
-		
-		self.wp_menu.Append(wx.ID_ANY, _("Manage Comments..."))
-		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onComments, self.wp_menu.FindItemByPosition(1))
-		
-		self.wp_menu.AppendSeparator()
-		self.wp_menu.Append(wx.ID_ANY, _("Settings..."))
-		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onSettings, self.wp_menu.FindItemByPosition(3))
-		
-		self.main_item = self.menu.AppendSubMenu(self.wp_menu, _("WordPress Manager"))
+		self.wpMenu = wx.Menu() # PascalCase menu
+		itemNew = self.wpMenu.Append(wx.ID_ANY, _("New Content..."))
+		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onNew, itemNew)
+		itemComm = self.wpMenu.Append(wx.ID_ANY, _("Manage Comments..."))
+		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onComments, itemComm)
+		self.wpMenu.AppendSeparator()
+		itemSet = self.wpMenu.Append(wx.ID_ANY, _("Settings..."))
+		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onSettings, itemSet)
+		itemDonate = self.wpMenu.Append(wx.ID_ANY, _("Support the Developer (Donation)"))
+		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onDonate, itemDonate)
+		self.mainItem = self.menu.AppendSubMenu(self.wpMenu, _("WordPress Manager"))
 
 	def onNew(self, evt):
 		d = CreateContentDialog(gui.mainFrame)
@@ -167,7 +171,13 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def onSettings(self, evt):
 		WordPressSettingsDialog(gui.mainFrame).Show()
 
-	def api_call(self, method, endpoint, data=None):
+	def onDonate(self, evt):
+		webbrowser.open("https://www.paytr.com/link/N2IAQKm")
+
+	def apiCall(self, method, endpoint, data=None): # camelCase
+		if not config.conf['wordpressManager']['siteUrl']:
+			wx.CallAfter(ui.message, _("Please configure the settings first."))
+			return
 		url = f"{config.conf['wordpressManager']['siteUrl']}/wp-json/wp/v2/{endpoint}"
 		auth = (config.conf['wordpressManager']['username'], config.conf['wordpressManager']['appPassword'])
 		try:
@@ -175,14 +185,13 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				r = requests.post(url, auth=auth, json=data, timeout=15)
 			else:
 				r = requests.get(url, auth=auth, timeout=15)
-			
 			if r.status_code in [200, 201]:
-				wx.CallAfter(ui.message, _("Operation successful."))
+				wx.CallAfter(ui.message, _("Action completed successfully."))
 			else:
 				wx.CallAfter(ui.message, _("Error: {code}").format(code=r.status_code))
 		except:
-			wx.CallAfter(ui.message, _("Connection failed."))
+			wx.CallAfter(ui.message, _("Connection failed. Please check your settings."))
 
 	def terminate(self):
-		try: self.menu.Remove(self.main_item)
+		try: self.menu.Remove(self.mainItem)
 		except: pass

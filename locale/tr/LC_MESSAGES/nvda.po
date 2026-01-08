@@ -1,48 +1,105 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
-"POT-Creation-Date: \n"
-"PO-Revision-Date: \n"
-"Last-Translator: \n"
-"Language-Team: \n"
+"Project-Id-Version: WordPress Manager 8.9\n"
+"POT-Creation-Date: 2026-01-06 21:30+0300\n"
+"PO-Revision-Date: 2026-01-06 21:27+0300\n"
+"Last-Translator: Volkan Ozdemir\n"
+"Language-Team: Turkish\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.8\n"
 
-msgid "WordPress: Create New Content"
+msgid "WordPress Manager"
+msgstr "WordPress Yöneticisi"
+
+msgid "Yeni İçerik..."
+msgstr "Yeni İçerik..."
+
+msgid "Yorumları Yönet..."
+msgstr "Yorumları Yönet..."
+
+msgid "Ayarlar..."
+msgstr "Ayarlar..."
+
+msgid "Bağış Yapın (Geliştiriciyi Destekle)"
+msgstr "Bağış Yapın (Geliştiriciyi Destekle)"
+
+msgid "WordPress Manager Ayarları"
+msgstr "WordPress Manager Ayarları"
+
+msgid "Site &URL adresi:"
+msgstr "Site &URL adresi:"
+
+msgid "&Kullanıcı Adı:"
+msgstr "&Kullanıcı Adı:"
+
+msgid "&Uygulama Parolası:"
+msgstr "&Uygulama Parolası:"
+
+msgid "WordPress: Yeni İçerik Oluştur"
 msgstr "WordPress: Yeni İçerik Oluştur"
 
-msgid "Select &Category:"
-msgstr "Ka&tegori Seçin:"
+msgid "İçerik &Başlığı:"
+msgstr "İçerik &Başlığı:"
 
-msgid "Loading categories..."
+msgid "&Gövde Metni:"
+msgstr "&Gövde Metni:"
+
+msgid "&Kategori Seçin:"
+msgstr "&Kategori Seçin:"
+
+msgid "Kategoriler yükleniyor..."
 msgstr "Kategoriler yükleniyor..."
 
-msgid "WordPress: Manage Comments"
+msgid "İçerik &Türü:"
+msgstr "İçerik &Türü:"
+
+msgid "Yazı"
+msgstr "Yazı"
+
+msgid "Sayfa"
+msgstr "Sayfa"
+
+msgid "&Durum:"
+msgstr "&Durum:"
+
+msgid "Taslak"
+msgstr "Taslak"
+
+msgid "Yayınla"
+msgstr "Yayınla"
+
+msgid "Kategoriler yüklenemedi."
+msgstr "Kategoriler yüklenemedi."
+
+msgid "WordPress: Yorumları Yönet"
 msgstr "WordPress: Yorumları Yönet"
 
-msgid "&Recent Comments:"
+msgid "&Son Yorumlar:"
 msgstr "&Son Yorumlar:"
 
-msgid "&Approve"
+msgid "Yorumlar alınıyor..."
+msgstr "Yorumlar alınıyor..."
+
+msgid "&Onayla"
 msgstr "&Onayla"
 
 msgid "&Spam"
-msgstr "&Spam Olarak İşaretle"
+msgstr "&Spam"
 
-msgid "&Trash"
-msgstr "Çö&pe At"
+msgid "&Çöpe At"
+msgstr "&Çöpe At"
 
-msgid "New Content..."
-msgstr "Yeni İçerik..."
+msgid "Lütfen önce ayarları yapın."
+msgstr "Lütfen önce ayarları yapın."
 
-msgid "Manage Comments..."
-msgstr "Yorumları Yönet..."
+msgid "İşlem başarıyla tamamlandı."
+msgstr "İşlem başarıyla tamamlandı."
 
-msgid "Operation successful."
-msgstr "İşlem başarılı."
+msgid "Hata: {code}"
+msgstr "Hata: {code}"
 
-msgid "Connection failed."
-msgstr "Bağlantı kurulamadı."
+msgid "Bağlantı kurulamadı. Ayarları kontrol edin."
+msgstr "Bağlantı kurulamadı. Ayarları kontrol edin."
