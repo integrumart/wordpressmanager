@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: WordPress Manager 11.5\n"
-"POT-Creation-Date: 2026-01-11 13:50+0300\n"
-"PO-Revision-Date: 2026-01-11 13:50+0300\n"
+"Project-Id-Version: WordPress Manager 15.0\n"
+"POT-Creation-Date: 2026-01-11 16:15+0300\n"
+"PO-Revision-Date: 2026-01-11 16:12+0300\n"
 "Last-Translator: Volkan Ozdemir\n"
 "Language-Team: Turkish\n"
 "Language: tr\n"
@@ -14,95 +14,107 @@ msgstr ""
 msgid "WordPress Manager"
 msgstr "WordPress Yöneticisi"
 
-msgid "Yeni İçerik..."
+msgid "New Content..."
 msgstr "Yeni İçerik..."
 
-msgid "Yorumları Yönet..."
+msgid "Manage Comments..."
 msgstr "Yorumları Yönet..."
 
-msgid "Ayarlar..."
+msgid "Settings..."
 msgstr "Ayarlar..."
 
-msgid "Bağış Yapın (Geliştiriciyi Destekle)"
-msgstr "Bağış Yapın (Geliştiriciyi Destekle)"
-
-msgid "WordPress Manager Ayarları"
+msgid "WordPress Manager Settings"
 msgstr "WordPress Manager Ayarları"
 
-msgid "Site &URL Adresi:"
+msgid "Site &URL Address:"
 msgstr "Site &URL adresi:"
 
-msgid "&Kullanıcı Adı:"
+msgid "&Username:"
 msgstr "&Kullanıcı Adı:"
 
-msgid "&Uygulama Parolası:"
+msgid "&Application Password:"
 msgstr "&Uygulama Parolası:"
 
-msgid "WordPress: Yeni İçerik Oluştur"
+msgid "WordPress: Create New Content"
 msgstr "WordPress: Yeni İçerik Oluştur"
 
-msgid "İçerik &Başlığı:"
+msgid "Content &Title:"
 msgstr "İçerik &Başlığı:"
 
-msgid "HTML Desteğini Aktif Et"
+msgid "Enable HTML Support"
 msgstr "HTML Desteğini Aktif Et"
 
-msgid "&Gövde Metni:"
+msgid "&Body Text:"
 msgstr "&Gövde Metni:"
 
-msgid "&Kategori Seçin:"
+msgid "&Tags (comma separated IDs):"
+msgstr "&Etiketler (virgülle ayrılmış ID'ler):"
+
+msgid "&Visibility:"
+msgstr "&Görünürlük:"
+
+msgid "Public"
+msgstr "Herkese Açık"
+
+msgid "Private"
+msgstr "Gizli"
+
+msgid "Post &Password (Optional):"
+msgstr "İçerik &Parolası (İsteğe Bağlı):"
+
+msgid "Select &Category:"
 msgstr "&Kategori Seçin:"
 
-msgid "Kategoriler yükleniyor..."
+msgid "Loading categories..."
 msgstr "Kategoriler yükleniyor..."
 
-msgid "İçerik &Türü:"
+msgid "Content &Type:"
 msgstr "İçerik &Türü:"
 
-msgid "Yazı"
+msgid "Post"
 msgstr "Yazı"
 
-msgid "Sayfa"
+msgid "Page"
 msgstr "Sayfa"
 
-msgid "&Durum:"
+msgid "&Status:"
 msgstr "&Durum:"
 
-msgid "Taslak"
+msgid "Draft"
 msgstr "Taslak"
 
-msgid "Yayınla"
+msgid "Publish"
 msgstr "Yayınla"
 
-msgid "Kategoriler yüklenemedi."
+msgid "Could not load categories."
 msgstr "Kategoriler yüklenemedi."
 
-msgid "WordPress: Yorumları Yönet"
+msgid "WordPress: Manage Comments"
 msgstr "WordPress: Yorumları Yönet"
 
-msgid "&Son Yorumlar:"
+msgid "&Recent Comments:"
 msgstr "&Son Yorumlar:"
 
-msgid "Yorumlar alınıyor..."
+msgid "Fetching comments..."
 msgstr "Yorumlar alınıyor..."
 
-msgid "&Onayla"
+msgid "&Approve"
 msgstr "&Onayla"
 
 msgid "&Spam"
 msgstr "&Spam"
 
-msgid "&Çöpe At"
+msgid "&Trash"
 msgstr "&Çöpe At"
 
-msgid "Lütfen önce ayarları yapın."
+msgid "Please configure the settings first."
 msgstr "Lütfen önce ayarları yapın."
 
-msgid "İşlem başarıyla tamamlandı."
+msgid "Action completed successfully."
 msgstr "İşlem başarıyla tamamlandı."
 
-msgid "Hata: {code}"
+msgid "Error: {code}"
 msgstr "Hata: {code}"
 
-msgid "Bağlantı kurulamadı. Ayarları kontrol edin."
+msgid "Connection failed. Please check your settings."
 msgstr "Bağlantı kurulamadı. Ayarları kontrol edin."

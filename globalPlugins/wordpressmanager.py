@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # WordPress Manager Ultimate for NVDA
-# Version: 11.5
+# Version: 15.0
 # Author: Volkan Ozdemir Software Services
 
 import os
@@ -38,13 +38,13 @@ config.conf.spec["wordpressManager"] = confSpec
 
 class WordPressSettingsDialog(gui.SettingsDialog):
 	"""Bağlantı ayarlarının yapıldığı panel."""
-	title = _("WordPress Manager Ayarları")
+	title = _("WordPress Manager Settings")
 
 	def makeSettings(self, settingsSizer):
 		sHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
-		self.siteUrl = sHelper.addLabeledControl(_("Site &URL Adresi:"), wx.TextCtrl, value=config.conf["wordpressManager"]["siteUrl"])
-		self.username = sHelper.addLabeledControl(_("&Kullanıcı Adı:"), wx.TextCtrl, value=config.conf["wordpressManager"]["username"])
-		self.appPassword = sHelper.addLabeledControl(_("&Uygulama Parolası:"), wx.TextCtrl, value=config.conf["wordpressManager"]["appPassword"], style=wx.TE_PASSWORD)
+		self.siteUrl = sHelper.addLabeledControl(_("Site &URL Address:"), wx.TextCtrl, value=config.conf["wordpressManager"]["siteUrl"])
+		self.username = sHelper.addLabeledControl(_("&Username:"), wx.TextCtrl, value=config.conf["wordpressManager"]["username"])
+		self.appPassword = sHelper.addLabeledControl(_("&Application Password:"), wx.TextCtrl, value=config.conf["wordpressManager"]["appPassword"], style=wx.TE_PASSWORD)
 
 	def onOk(self, event):
 		config.conf["wordpressManager"]["siteUrl"] = self.siteUrl.Value.strip().rstrip('/')
@@ -53,37 +53,50 @@ class WordPressSettingsDialog(gui.SettingsDialog):
 		super(WordPressSettingsDialog, self).onOk(event)
 
 class CreateContentDialog(gui.SettingsDialog):
-	"""HTML destekli ve Enter sorunsuz içerik oluşturma diyaloğu."""
-	title = _("WordPress: Yeni İçerik Oluştur")
+	"""HTML destekli, etiketli, parolalı ve gelişmiş görünürlük seçenekli içerik oluşturma diyaloğu."""
+	title = _("WordPress: Create New Content")
 
 	def makeSettings(self, settingsSizer):
 		sHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
-		self.postTitle = sHelper.addLabeledControl(_("İçerik &Başlığı:"), wx.TextCtrl)
+		self.postTitle = sHelper.addLabeledControl(_("Content &Title:"), wx.TextCtrl)
 		
-		# HTML İsteğe bağlı onay kutusu
-		self.useHtml = wx.CheckBox(self, label=_("HTML Desteğini Aktif Et"))
+		# HTML Onay Kutusu
+		self.useHtml = wx.CheckBox(self, label=_("Enable HTML Support"))
 		settingsSizer.Add(self.useHtml)
 		
-		# Gövde Metni - TE_PROCESS_ENTER Enter'ı yakalamak için şart
+		# Gövde Metni - TE_PROCESS_ENTER ile Enter tuşu kontrol altına alındı
 		self.postContent = sHelper.addLabeledControl(
-			_("&Gövde Metni:"), 
+			_("&Body Text:"), 
 			wx.TextCtrl, 
 			style=wx.TE_MULTILINE | wx.TE_RICH2 | wx.TE_PROCESS_ENTER
 		)
-		
-		# Enter tuşuna basıldığında diyalog kapanmasın, alt satıra geçsin
 		self.postContent.Bind(wx.EVT_TEXT_ENTER, self.onEnterPressed)
 		
-		self.categoryList = sHelper.addLabeledControl(_("&Kategori Seçin:"), wx.CheckListBox, choices=[_("Kategoriler yükleniyor...")])
-		self.contentType = sHelper.addLabeledControl(_("İçerik &Türü:"), wx.Choice, choices=[_("Yazı"), _("Sayfa")])
+		# Etiketler (Virgülle ayrılmış ID'ler veya desteklenen sistemler için isimler)
+		self.postTags = sHelper.addLabeledControl(_("&Tags (comma separated IDs):"), wx.TextCtrl)
+		
+		# Görünürlük (Public/Private)
+		self.visibility = sHelper.addLabeledControl(_("&Visibility:"), wx.Choice, choices=[_("Public"), _("Private")])
+		self.visibility.SetSelection(0)
+		
+		# Şifre Koruması
+		self.postPassword = sHelper.addLabeledControl(_("Post &Password (Optional):"), wx.TextCtrl)
+		
+		# Kategoriler
+		self.categoryList = sHelper.addLabeledControl(_("Select &Category:"), wx.CheckListBox, choices=[_("Loading categories...")])
+		
+		# İçerik Türü (Yazı/Sayfa)
+		self.contentType = sHelper.addLabeledControl(_("Content &Type:"), wx.Choice, choices=[_("Post"), _("Page")])
 		self.contentType.SetSelection(0)
-		self.status = sHelper.addLabeledControl(_("&Durum:"), wx.Choice, choices=[_("Taslak"), _("Yayınla")])
+		
+		# Durum (Taslak/Yayınla)
+		self.status = sHelper.addLabeledControl(_("&Status:"), wx.Choice, choices=[_("Draft"), _("Publish")])
 		self.status.SetSelection(0)
 		
 		threading.Thread(target=self.fetchCategories).start()
 
 	def onEnterPressed(self, event):
-		"""Enter'a basıldığında imlecin olduğu yere alt satır karakteri ekler."""
+		"""Enter'a basıldığında alt satıra geçer."""
 		self.postContent.WriteText('\n')
 
 	def fetchCategories(self):
@@ -97,7 +110,7 @@ class CreateContentDialog(gui.SettingsDialog):
 				catNames = [cat['name'] for cat in self.categories]
 				wx.CallAfter(self.updateCategoryList, catNames)
 		except:
-			wx.CallAfter(ui.message, _("Kategoriler yüklenemedi."))
+			wx.CallAfter(ui.message, _("Could not load categories."))
 
 	def updateCategoryList(self, names):
 		if not self: return
@@ -106,16 +119,29 @@ class CreateContentDialog(gui.SettingsDialog):
 
 	def onOk(self, event):
 		selectedCats = []
-		if self.contentType.GetSelection() == 0:
+		if self.contentType.GetSelection() == 0: # Sadece yazılar için kategori seçimi
 			for i in range(self.categoryList.GetCount()):
 				if self.categoryList.IsChecked(i):
 					selectedCats.append(self.categories[i]['id'])
 		
+		# Payload Hazırlama
 		payload = {
 			"title": self.postTitle.Value,
 			"content": self.postContent.Value,
-			"status": "publish" if self.status.GetSelection() == 1 else "draft"
+			"status": "publish" if self.status.GetSelection() == 1 else "draft",
+			"password": self.postPassword.Value.strip()
 		}
+		
+		# Görünürlük (Private seçilirse status private olur)
+		if self.visibility.GetSelection() == 1:
+			payload["status"] = "private"
+		
+		# Etiketler (ID listesi olarak gönderilir)
+		tag_val = self.postTags.Value.strip()
+		if tag_val:
+			try:
+				payload["tags"] = [int(t.strip()) for t in tag_val.split(',')]
+			except: pass
 		
 		if selectedCats:
 			payload["categories"] = selectedCats
@@ -126,24 +152,20 @@ class CreateContentDialog(gui.SettingsDialog):
 
 class CommentManagerDialog(gui.SettingsDialog):
 	"""Yorum yönetimi diyaloğu."""
-	title = _("WordPress: Yorumları Yönet")
+	title = _("WordPress: Manage Comments")
 
 	def makeSettings(self, settingsSizer):
 		sHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
-		self.commentList = sHelper.addLabeledControl(_("&Son Yorumlar:"), wx.ListBox, choices=[_("Yorumlar alınıyor...")])
-		
+		self.commentList = sHelper.addLabeledControl(_("&Recent Comments:"), wx.ListBox, choices=[_("Fetching comments...")])
 		btnSizer = wx.BoxSizer(wx.HORIZONTAL)
-		self.btnApprove = wx.Button(self, label=_("&Onayla"))
+		self.btnApprove = wx.Button(self, label=_("&Approve"))
 		self.btnSpam = wx.Button(self, label=_("&Spam"))
-		self.btnTrash = wx.Button(self, label=_("&Çöpe At"))
-		
+		self.btnTrash = wx.Button(self, label=_("&Trash"))
 		btnSizer.Add(self.btnApprove); btnSizer.Add(self.btnSpam); btnSizer.Add(self.btnTrash)
 		settingsSizer.Add(btnSizer)
-		
 		self.btnApprove.Bind(wx.EVT_BUTTON, lambda e: self.onAction("approve"))
 		self.btnSpam.Bind(wx.EVT_BUTTON, lambda e: self.onAction("spam"))
 		self.btnTrash.Bind(wx.EVT_BUTTON, lambda e: self.onAction("trash"))
-		
 		threading.Thread(target=self.loadComments).start()
 
 	def loadComments(self):
@@ -155,8 +177,7 @@ class CommentManagerDialog(gui.SettingsDialog):
 			self.comments = r.json()
 			items = [f"{c['author_name']}: {c['content']['rendered'][:50]}" for c in self.comments]
 			wx.CallAfter(self.commentList.Set, items)
-		except:
-			pass
+		except: pass
 
 	def onAction(self, action):
 		idx = self.commentList.GetSelection()
@@ -166,6 +187,7 @@ class CommentManagerDialog(gui.SettingsDialog):
 		self.commentList.Delete(idx)
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
+	"""Eklentinin ana giriş noktası."""
 	scriptCategory = _("WordPress Manager")
 
 	def __init__(self):
@@ -176,19 +198,16 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		self.menu = gui.mainFrame.sysTrayIcon.menu
 		self.wpMenu = wx.Menu()
 		
-		itemNew = self.wpMenu.Append(wx.ID_ANY, _("Yeni İçerik..."))
+		itemNew = self.wpMenu.Append(wx.ID_ANY, _("New Content..."))
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onNew, itemNew)
 		
-		itemComm = self.wpMenu.Append(wx.ID_ANY, _("Yorumları Yönet..."))
+		itemComm = self.wpMenu.Append(wx.ID_ANY, _("Manage Comments..."))
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onComments, itemComm)
 		
 		self.wpMenu.AppendSeparator()
 		
-		itemSet = self.wpMenu.Append(wx.ID_ANY, _("Ayarlar..."))
+		itemSet = self.wpMenu.Append(wx.ID_ANY, _("Settings..."))
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onSettings, itemSet)
-		
-		itemDonate = self.wpMenu.Append(wx.ID_ANY, _("Bağış Yapın (Geliştiriciyi Destekle)"))
-		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onDonate, itemDonate)
 		
 		self.mainItem = self.menu.AppendSubMenu(self.wpMenu, _("WordPress Manager"))
 
@@ -205,17 +224,12 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def onSettings(self, evt):
 		WordPressSettingsDialog(gui.mainFrame).Show()
 
-	def onDonate(self, evt):
-		webbrowser.open("https://www.paytr.com/link/N2IAQKm")
-
 	def apiCall(self, method, endpoint, data=None):
 		if not config.conf['wordpressManager']['siteUrl']:
-			wx.CallAfter(ui.message, _("Lütfen önce ayarları yapın."))
+			wx.CallAfter(ui.message, _("Please configure the settings first."))
 			return
-		
 		url = f"{config.conf['wordpressManager']['siteUrl']}/wp-json/wp/v2/{endpoint}"
 		auth = (config.conf['wordpressManager']['username'], config.conf['wordpressManager']['appPassword'])
-		
 		try:
 			if method == "POST":
 				r = requests.post(url, auth=auth, json=data, timeout=15)
@@ -223,14 +237,12 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				r = requests.get(url, auth=auth, timeout=15)
 			
 			if r.status_code in [200, 201]:
-				wx.CallAfter(ui.message, _("İşlem başarıyla tamamlandı."))
+				wx.CallAfter(ui.message, _("Action completed successfully."))
 			else:
-				wx.CallAfter(ui.message, _("Hata: {code}").format(code=r.status_code))
+				wx.CallAfter(ui.message, _("Error: {code}").format(code=r.status_code))
 		except:
-			wx.CallAfter(ui.message, _("Bağlantı kurulamadı. Ayarları kontrol edin."))
+			wx.CallAfter(ui.message, _("Connection failed. Please check your settings."))
 
 	def terminate(self):
-		try:
-			self.menu.Remove(self.mainItem)
-		except:
-			pass
+		try: self.menu.Remove(self.mainItem)
+		except: pass
