@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: WordPress Manager 8.9\n"
-"POT-Creation-Date: 2026-01-06 21:30+0300\n"
-"PO-Revision-Date: 2026-01-06 21:27+0300\n"
+"Project-Id-Version: WordPress Manager 11.5\n"
+"POT-Creation-Date: 2026-01-11 13:50+0300\n"
+"PO-Revision-Date: 2026-01-11 13:50+0300\n"
 "Last-Translator: Volkan Ozdemir\n"
 "Language-Team: Turkish\n"
 "Language: tr\n"
@@ -29,7 +29,7 @@ msgstr "Bağış Yapın (Geliştiriciyi Destekle)"
 msgid "WordPress Manager Ayarları"
 msgstr "WordPress Manager Ayarları"
 
-msgid "Site &URL adresi:"
+msgid "Site &URL Adresi:"
 msgstr "Site &URL adresi:"
 
 msgid "&Kullanıcı Adı:"
@@ -43,6 +43,9 @@ msgstr "WordPress: Yeni İçerik Oluştur"
 
 msgid "İçerik &Başlığı:"
 msgstr "İçerik &Başlığı:"
+
+msgid "HTML Desteğini Aktif Et"
+msgstr "HTML Desteğini Aktif Et"
 
 msgid "&Gövde Metni:"
 msgstr "&Gövde Metni:"
