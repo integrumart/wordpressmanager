@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: WordPress Manager 15.0\n"
-"POT-Creation-Date: 2026-01-11 16:15+0300\n"
-"PO-Revision-Date: 2026-01-11 16:12+0300\n"
+"Project-Id-Version: WordPress Manager 19.0\n"
+"POT-Creation-Date: 2026-01-11 17:10+0300\n"
+"PO-Revision-Date: 2026-01-11 17:14+0300\n"
 "Last-Translator: Volkan Ozdemir\n"
 "Language-Team: Turkish\n"
 "Language: tr\n"
@@ -20,35 +20,65 @@ msgstr "Yeni İçerik..."
 msgid "Manage Comments..."
 msgstr "Yorumları Yönet..."
 
-msgid "Settings..."
-msgstr "Ayarlar..."
+msgid "Site Settings..."
+msgstr "Site Ayarları..."
+
+msgid "Account Configuration..."
+msgstr "Hesap Yapılandırması..."
+
+msgid "Visit Website"
+msgstr "Web Sitemizi Ziyaret Edin"
+
+msgid "Donate (Support Developer)"
+msgstr "Bağış Yap (Geliştiriciyi Destekle)"
 
 msgid "WordPress Manager Settings"
 msgstr "WordPress Manager Ayarları"
 
-msgid "Site &URL Address:"
-msgstr "Site &URL adresi:"
+msgid "Site &URL:"
+msgstr "Site &URL Adresi:"
 
 msgid "&Username:"
 msgstr "&Kullanıcı Adı:"
 
-msgid "&Application Password:"
+msgid "&App Password:"
 msgstr "&Uygulama Parolası:"
 
-msgid "WordPress: Create New Content"
-msgstr "WordPress: Yeni İçerik Oluştur"
+msgid "WordPress: Site Administration"
+msgstr "WordPress: Site Yönetimi"
 
-msgid "Content &Title:"
-msgstr "İçerik &Başlığı:"
+msgid "Site &Title:"
+msgstr "Site &Başlığı:"
 
-msgid "Enable HTML Support"
-msgstr "HTML Desteğini Aktif Et"
+msgid "&Tagline:"
+msgstr "Slogan (&Açıklama):"
 
-msgid "&Body Text:"
-msgstr "&Gövde Metni:"
+msgid "&Posts Per Page:"
+msgstr "&Sayfa Başına Yazı Sayısı:"
 
-msgid "&Tags (comma separated IDs):"
-msgstr "&Etiketler (virgülle ayrılmış ID'ler):"
+msgid "Default &Category ID:"
+msgstr "Varsayılan &Kategori ID:"
+
+msgid "Security Warning"
+msgstr "Güvenlik Uyarısı"
+
+msgid "Insecure connection (HTTP) detected. Continue?"
+msgstr "Güvensiz bağlantı (HTTP) tespit edildi. Devam edilsin mi?"
+
+msgid "WordPress: Create Content"
+msgstr "WordPress: İçerik Oluştur"
+
+msgid "&Title:"
+msgstr "&Başlık:"
+
+msgid "Enable HTML"
+msgstr "HTML Desteğini Etkinleştir"
+
+msgid "&Content:"
+msgstr "&İçerik:"
+
+msgid "&Tags (IDs):"
+msgstr "&Etiketler (ID Listesi):"
 
 msgid "&Visibility:"
 msgstr "&Görünürlük:"
@@ -59,17 +89,17 @@ msgstr "Herkese Açık"
 msgid "Private"
 msgstr "Gizli"
 
-msgid "Post &Password (Optional):"
-msgstr "İçerik &Parolası (İsteğe Bağlı):"
+msgid "&Password:"
+msgstr "&Parola:"
 
-msgid "Select &Category:"
-msgstr "&Kategori Seçin:"
+msgid "&Categories:"
+msgstr "&Kategoriler:"
 
-msgid "Loading categories..."
-msgstr "Kategoriler yükleniyor..."
+msgid "Loading..."
+msgstr "Yükleniyor..."
 
-msgid "Content &Type:"
-msgstr "İçerik &Türü:"
+msgid "T&ype:"
+msgstr "T&ür:"
 
 msgid "Post"
 msgstr "Yazı"
@@ -86,17 +116,11 @@ msgstr "Taslak"
 msgid "Publish"
 msgstr "Yayınla"
 
-msgid "Could not load categories."
-msgstr "Kategoriler yüklenemedi."
-
 msgid "WordPress: Manage Comments"
 msgstr "WordPress: Yorumları Yönet"
 
 msgid "&Recent Comments:"
 msgstr "&Son Yorumlar:"
-
-msgid "Fetching comments..."
-msgstr "Yorumlar alınıyor..."
 
 msgid "&Approve"
 msgstr "&Onayla"
@@ -107,14 +131,14 @@ msgstr "&Spam"
 msgid "&Trash"
 msgstr "&Çöpe At"
 
-msgid "Please configure the settings first."
-msgstr "Lütfen önce ayarları yapın."
+msgid "Configuration required."
+msgstr "Yapılandırma gerekli."
 
-msgid "Action completed successfully."
+msgid "Operation successful."
 msgstr "İşlem başarıyla tamamlandı."
 
-msgid "Error: {code}"
-msgstr "Hata: {code}"
+msgid "Error code: {code}"
+msgstr "Hata kodu: {code}"
 
-msgid "Connection failed. Please check your settings."
-msgstr "Bağlantı kurulamadı. Ayarları kontrol edin."
+msgid "Connection failed."
+msgstr "Bağlantı kurulamadı."
