@@ -1,0 +1,355 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the wordpressManager package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: wordpressManager 20.0\n"
+"Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
+"POT-Creation-Date: 2026-06-15 17:22+0700\n"
+"PO-Revision-Date: 2026-06-15 17:25+0700\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Indonesian <id@li.org>\n"
+"Language: id\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: addon\globalPlugins\wordpressmanager.py:62
+msgid "WordPress Manager Settings"
+msgstr "Pengaturan WordPress Manager"
+
+#: addon\globalPlugins\wordpressmanager.py:76
+msgid "Saved &Profiles:"
+msgstr "Profil &Tersimpan:"
+
+#: addon\globalPlugins\wordpressmanager.py:80
+msgid "&Save Profile"
+msgstr "&Simpan Profil"
+
+#: addon\globalPlugins\wordpressmanager.py:81
+msgid "&Delete Profile"
+msgstr "&Hapus Profil"
+
+#: addon\globalPlugins\wordpressmanager.py:88
+msgid "Site &URL:"
+msgstr "&URL Situs:"
+
+#: addon\globalPlugins\wordpressmanager.py:89
+msgid "&Username:"
+msgstr "Nama Pengg&una:"
+
+#: addon\globalPlugins\wordpressmanager.py:90
+msgid "&App Password:"
+msgstr "Sandi &Aplikasi:"
+
+#: addon\globalPlugins\wordpressmanager.py:101
+msgid "Enter a name for this profile:"
+msgstr "Masukkan nama untuk profil ini:"
+
+#: addon\globalPlugins\wordpressmanager.py:101
+msgid "Save Profile"
+msgstr "Simpan Profil"
+
+#: addon\globalPlugins\wordpressmanager.py:125
+msgid "Profile saved."
+msgstr "Profil tersimpan."
+
+#: addon\globalPlugins\wordpressmanager.py:133
+msgid "Profile deleted."
+msgstr "Profil terhapus."
+
+#: addon\globalPlugins\wordpressmanager.py:138
+msgid "Insecure connection (HTTP) detected. Continue?"
+msgstr "Koneksi tidak aman (HTTP) terdeteksi. Lanjutkan?"
+
+#: addon\globalPlugins\wordpressmanager.py:138
+msgid "Security Warning"
+msgstr "Peringatan Keamanan"
+
+#: addon\globalPlugins\wordpressmanager.py:147
+msgid "WordPress: Site Administration"
+msgstr "WordPress: Administrasi Situs"
+
+#: addon\globalPlugins\wordpressmanager.py:151
+msgid "Site &Title:"
+msgstr "&Judul Situs:"
+
+#: addon\globalPlugins\wordpressmanager.py:152
+msgid "&Tagline:"
+msgstr "&Slogan:"
+
+#: addon\globalPlugins\wordpressmanager.py:153
+msgid "&Posts Per Page:"
+msgstr "&Postingan Per Halaman:"
+
+#: addon\globalPlugins\wordpressmanager.py:154
+msgid "Default &Category ID:"
+msgstr "ID &Kategori Bawaan:"
+
+#: addon\globalPlugins\wordpressmanager.py:178
+msgid "WordPress: Create Content"
+msgstr "WordPress: Buat Konten"
+
+#: addon\globalPlugins\wordpressmanager.py:185
+msgid "WordPress: Edit Content"
+msgstr "WordPress: Edit Konten"
+
+#: addon\globalPlugins\wordpressmanager.py:190
+msgid "&Title:"
+msgstr "&Judul:"
+
+#: addon\globalPlugins\wordpressmanager.py:192
+msgid "&Content Format:"
+msgstr "Format &Konten:"
+
+#: addon\globalPlugins\wordpressmanager.py:192
+msgid "Plain Text"
+msgstr "Teks Biasa"
+
+#: addon\globalPlugins\wordpressmanager.py:192
+msgid "HTML"
+msgstr "HTML"
+
+#: addon\globalPlugins\wordpressmanager.py:192
+msgid "Markdown"
+msgstr "Markdown"
+
+#: addon\globalPlugins\wordpressmanager.py:195
+msgid "&Content:"
+msgstr "&Konten:"
+
+#: addon\globalPlugins\wordpressmanager.py:197
+msgid "&Tags (IDs):"
+msgstr "&Tag (ID):"
+
+#: addon\globalPlugins\wordpressmanager.py:198
+msgid "&Visibility:"
+msgstr "&Visibilitas:"
+
+#: addon\globalPlugins\wordpressmanager.py:198
+msgid "Public"
+msgstr "Publik"
+
+#: addon\globalPlugins\wordpressmanager.py:198
+msgid "Private"
+msgstr "Pribadi"
+
+#: addon\globalPlugins\wordpressmanager.py:199
+msgid "&Password:"
+msgstr "&Kata Sandi:"
+
+#: addon\globalPlugins\wordpressmanager.py:200
+msgid "&Categories:"
+msgstr "Kategori:"
+
+#: addon\globalPlugins\wordpressmanager.py:200
+#: addon\globalPlugins\wordpressmanager.py:284
+#: addon\globalPlugins\wordpressmanager.py:297
+#: addon\globalPlugins\wordpressmanager.py:339
+msgid "Loading..."
+msgstr "Memuat..."
+
+#: addon\globalPlugins\wordpressmanager.py:201
+msgid "T&ype:"
+msgstr "T&ipe:"
+
+#: addon\globalPlugins\wordpressmanager.py:201
+msgid "Post"
+msgstr "Postingan"
+
+#: addon\globalPlugins\wordpressmanager.py:201
+msgid "Page"
+msgstr "Halaman"
+
+#: addon\globalPlugins\wordpressmanager.py:202
+msgid "&Status:"
+msgstr "&Status:"
+
+#: addon\globalPlugins\wordpressmanager.py:202
+msgid "Draft"
+msgstr "Draf"
+
+#: addon\globalPlugins\wordpressmanager.py:202
+msgid "Publish"
+msgstr "Terbitkan"
+
+#: addon\globalPlugins\wordpressmanager.py:271
+msgid "WordPress: Manage Content"
+msgstr "WordPress: Kelola Konten"
+
+#: addon\globalPlugins\wordpressmanager.py:280
+msgid "Content T&ype:"
+msgstr "T&ipe Konten:"
+
+#: addon\globalPlugins\wordpressmanager.py:280
+msgid "Posts"
+msgstr "Postingan"
+
+#: addon\globalPlugins\wordpressmanager.py:280
+msgid "Pages"
+msgstr "Halaman"
+
+#: addon\globalPlugins\wordpressmanager.py:284
+msgid "&Recent Content:"
+msgstr "Konten Te&rbaru:"
+
+#: addon\globalPlugins\wordpressmanager.py:286
+msgid "&Edit"
+msgstr "&Edit"
+
+#: addon\globalPlugins\wordpressmanager.py:287
+#: addon\globalPlugins\wordpressmanager.py:344
+msgid "&Trash"
+msgstr "&Tong Sampah"
+
+#: addon\globalPlugins\wordpressmanager.py:310
+msgid "Failed to load or no content."
+msgstr "Gagal memuat atau tidak ada konten."
+
+#: addon\globalPlugins\wordpressmanager.py:330
+msgid "WordPress: Manage Comments"
+msgstr "WordPress: Kelola Komentar"
+
+#: addon\globalPlugins\wordpressmanager.py:339
+msgid "&Recent Comments:"
+msgstr "Komentar Te&rbaru:"
+
+#: addon\globalPlugins\wordpressmanager.py:341
+msgid "&Approve"
+msgstr "&Setujui"
+
+#: addon\globalPlugins\wordpressmanager.py:342
+msgid "&Reply"
+msgstr "&Balas"
+
+#: addon\globalPlugins\wordpressmanager.py:343
+msgid "&Spam"
+msgstr "&Spam"
+
+#: addon\globalPlugins\wordpressmanager.py:375
+msgid "Enter your reply:"
+msgstr "Masukkan balasan Anda:"
+
+#: addon\globalPlugins\wordpressmanager.py:375
+msgid "Reply to Comment"
+msgstr "Balas Komentar"
+
+#: addon\globalPlugins\wordpressmanager.py:388
+msgid "WordPress: Upload Media"
+msgstr "WordPress: Unggah Media"
+
+#: addon\globalPlugins\wordpressmanager.py:399
+msgid "&Browse..."
+msgstr "&Telusuri..."
+
+#: addon\globalPlugins\wordpressmanager.py:404
+msgid "Select &File:"
+msgstr "Pilih &Berkas:"
+
+#: addon\globalPlugins\wordpressmanager.py:409
+msgid "Select Media File"
+msgstr "Pilih Berkas Media"
+
+#: addon\globalPlugins\wordpressmanager.py:417
+msgid "File does not exist."
+msgstr "Berkas tidak ada."
+
+#: addon\globalPlugins\wordpressmanager.py:417
+msgid "Error"
+msgstr "Kesalahan"
+
+#: addon\globalPlugins\wordpressmanager.py:425
+#: addon\globalPlugins\wordpressmanager.py:508
+msgid "Configuration required."
+msgstr "Konfigurasi diperlukan."
+
+#: addon\globalPlugins\wordpressmanager.py:428
+msgid "Uploading media, please wait..."
+msgstr "Mengunggah media, harap tunggu..."
+
+#: addon\globalPlugins\wordpressmanager.py:436
+msgid "Upload successful! URL copied to clipboard."
+msgstr "Unggah berhasil! URL tersalin ke papan klip."
+
+#: addon\globalPlugins\wordpressmanager.py:438
+#: addon\globalPlugins\wordpressmanager.py:517
+#, python-brace-format
+msgid "Error code: {code}"
+msgstr "Kode kesalahan: {code}"
+
+#: addon\globalPlugins\wordpressmanager.py:440
+msgid "Upload failed."
+msgstr "Gagal mengunggah."
+
+#. Translators: Summary/title for this add-on
+#: addon\globalPlugins\wordpressmanager.py:443
+#: addon\globalPlugins\wordpressmanager.py:474 buildVars.py:11
+msgid "WordPress Manager"
+msgstr "Manajer WordPress"
+
+#: addon\globalPlugins\wordpressmanager.py:452
+msgid "New Content..."
+msgstr "Konten Baru..."
+
+#: addon\globalPlugins\wordpressmanager.py:455
+msgid "Manage Content..."
+msgstr "Kelola Konten..."
+
+#: addon\globalPlugins\wordpressmanager.py:458
+msgid "Manage Comments..."
+msgstr "Kelola Komentar..."
+
+#: addon\globalPlugins\wordpressmanager.py:461
+msgid "Upload Media..."
+msgstr "Unggah Media..."
+
+#: addon\globalPlugins\wordpressmanager.py:464
+msgid "Site Settings..."
+msgstr "Pengaturan Situs..."
+
+#: addon\globalPlugins\wordpressmanager.py:468
+msgid "Account Configuration..."
+msgstr "Konfigurasi Akun..."
+
+#: addon\globalPlugins\wordpressmanager.py:470
+msgid "Visit Website"
+msgstr "Kunjungi Situs Web"
+
+#: addon\globalPlugins\wordpressmanager.py:472
+msgid "Donate (Support Developer)"
+msgstr "Donasi (Dukung Pengembang)"
+
+#: addon\globalPlugins\wordpressmanager.py:515
+msgid "Operation successful."
+msgstr "Operasi berhasil."
+
+#: addon\globalPlugins\wordpressmanager.py:519
+msgid "Connection failed."
+msgstr "Koneksi gagal."
+
+#: buildVars.py:14
+msgid ""
+"Professional tool that allows you to manage your WordPress site via REST API "
+"directly from NVDA. Supports Markdown and HTML content, media uploads, and "
+"multi-site configuration."
+msgstr "Alat profesional yang memungkinkan Anda mengelola situs WordPress melalui REST API secara langsung dari NVDA. Mendukung konten Markdown dan HTML, pengunggahan media, dan konfigurasi multisitus."
+
+#: buildVars.py:19
+msgid ""
+"- Added support for multiple saved site profiles.\n"
+"- Added ability to write posts in Markdown.\n"
+"- Added Media Upload, Manage Content (Edit/Trash), and Reply to Comments "
+"features.\n"
+"- Removed external requests library to guarantee full 64-bit and 32-bit "
+"Python cross-compatibility for NVDA 2026.1 and NVDA 2025.x.\n"
+"- Restructured add-on architecture to conform to standard NVDA Add-on "
+"template."
+msgstr ""
+"- Penambahan dukungan untuk menyimpan profil multi-situs.\n"
+"- Penambahan kemampuan untuk menulis postingan dalam Markdown.\n"
+"- Penambahan fitur Unggah Media, Kelola Konten (Edit/Buang), dan Balas Komentar.\n"
+"- Menghapus pustaka 'requests' eksternal untuk menjamin kompatibilitas silang Python 64-bit dan 32-bit secara penuh untuk NVDA 2026.1 dan NVDA 2025.x.\n"
+"- Restrukturisasi arsitektur add-on agar sesuai dengan templat Add-on NVDA standar."
